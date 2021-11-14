@@ -14,11 +14,23 @@ class GroceriesTableViewController: UITableViewController {
     var list = [Grocery]()
     @IBOutlet weak var userBarButton: UIBarButtonItem!
     var userlist = [User]() // list of user
+    private var loginObserver: NSObjectProtocol?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getAllUsers() // function to retrieve online user from realtime database
         retrieveData() // function to retrieve grocery items from realtime database
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+
+            strongSelf.getAllUsers()
+            strongSelf.retrieveData()
+        })
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +54,9 @@ class GroceriesTableViewController: UITableViewController {
     
     // function to retrieve from realtime database
     func retrieveData () {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
         // retrieve all Grocery items from realtime database thet seved before
         DatabaseManager.shared.RetrieveGroseries { result in
             switch result{
@@ -58,6 +73,9 @@ class GroceriesTableViewController: UITableViewController {
     
     // retrieve online user
     func getAllUsers () {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
         DatabaseManager.shared.getAllUsers { result in
             switch result{
             case.success(let users):

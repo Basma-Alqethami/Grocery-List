@@ -2,6 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb266222978789253</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.345364938728-1qaduq32ftikard70n2phasstn81mdqd</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>266222978789253</string>
+	<key>FacebookClientToken</key>
+	<string>bb8ab1154ce2b647381efd11c83c7bb6</string>
+	<key>FacebookDisplayName</key>
+	<string>Grocery List</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -21,24 +44,5 @@
 			</array>
 		</dict>
 	</dict>
-    
-    
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb266222978789253</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>266222978789253</string>
-    <key>FacebookClientToken</key>
-    <string>bb8ab1154ce2b647381efd11c83c7bb6</string>
-    <key>FacebookDisplayName</key>
-    <string>Grocery List</string>
-    
-    
 </dict>
 </plist>

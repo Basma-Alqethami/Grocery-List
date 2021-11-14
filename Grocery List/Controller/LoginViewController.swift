@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
+
 class LoginViewController: UIViewController {
     
     // MARK: - variables
@@ -15,29 +17,59 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var ErrorLabel: UILabel!
+    @IBOutlet weak var GoogleButton = GIDSignInButton()
+    private var loginObserver: NSObjectProtocol?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func facebookLoginButton(_ sender: UIButton) {
-        FBSDKLoginKit.LoginManager().logIn(permissions: ["email", "public_profile"], from: self){ (result, error) in
-            if error != nil {
-                print(error?.localizedDescription)
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {
                 return
             }
-            //print(result?.token?.tokenString)
-            
-            GraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start {
-                (connection, result, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                    return
-                }
-                print(result)
-            }
+
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        })
+        
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
         }
     }
+    
+    @IBAction func googlePressButton(_ sender: UIButton) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let signInConfig = appDelegate.signInConfig else {
+            return
+        }
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            guard let user = user, error == nil else { return }
+            appDelegate.handleSessionRestore(user: user)
+        }
+    }
+    
+//    @IBAction func facebookLoginButton(_ sender: UIButton) {
+//        FBSDKLoginKit.LoginManager().logIn(permissions: ["email", "public_profile"], from: self){ (result, error) in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//                return
+//            }
+//            //print(result?.token?.tokenString)
+//
+//            GraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start {
+//                (connection, result, error) in
+//                if error != nil {
+//                    print(error?.localizedDescription)
+//                    return
+//                }
+//                print(result)
+//            }
+//        }
+//    }
     
     
     

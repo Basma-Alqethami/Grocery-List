@@ -183,6 +183,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain">
                                                                     <backgroundConfiguration key="background" image="google" imageContentMode="scaleAspectFit"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="googlePressButton:" destination="szR-TC-gSS" eventType="touchUpInside" id="PlH-OH-rXS"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -248,6 +251,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="ErrorLabel" destination="UgO-5N-Hwu" id="EfT-hO-CbJ"/>
+                        <outlet property="GoogleButton" destination="UvR-gu-1J2" id="Mag-Or-chp"/>
                         <outlet property="emailTextField" destination="HZj-Bh-pNE" id="561-hL-ZrO"/>
                         <outlet property="passwordTextField" destination="45z-uX-5iw" id="XA2-5j-kYc"/>
                     </connections>

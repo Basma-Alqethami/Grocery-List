@@ -7,10 +7,10 @@ target 'Grocery List' do
 
   # Pods for Grocery List
 
-#pod 'Firebase/Core' 
-#pod 'Firebase/Auth' 
-#pod 'Google/SignIn'
-#pod 'FBSDKLoginKit'
-#pod 'Firebase/Database'
+pod 'Firebase/Core' 
+pod 'Firebase/Auth' 
+pod 'GoogleSignIn'
+pod 'FBSDKLoginKit'
+pod 'Firebase/Database'
 
 end

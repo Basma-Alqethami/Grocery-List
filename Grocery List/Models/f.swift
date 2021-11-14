@@ -16,3 +16,8 @@ struct Grocery {
 struct User{
     let email: String
 }
+
+extension Notification.Name {
+    /// Notificaiton  when user logs in
+    static let didLogInNotification = Notification.Name("didLogInNotification")
+}

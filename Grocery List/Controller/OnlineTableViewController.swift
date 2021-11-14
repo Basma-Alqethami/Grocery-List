@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-
+import GoogleSignIn
 
 class OnlineTableViewController: UITableViewController {
     
@@ -44,6 +44,8 @@ class OnlineTableViewController: UITableViewController {
     
     @IBAction func SignOutButton(_ sender: UIBarButtonItem) {
         
+        GIDSignIn.sharedInstance.signOut()
+
         do{
             // remove user from realtime database
             DatabaseManager.shared.deleteUser(with: Auth.auth().currentUser!.uid)  { success in
