@@ -12,15 +12,15 @@ import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
+    
     // MARK: - variables
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var ErrorLabel: UILabel!
-    @IBOutlet weak var GoogleButton = GIDSignInButton()
+    
     private var loginObserver: NSObjectProtocol?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,8 +40,10 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // MARK: - log in action
+
+    // Google login
     @IBAction func googlePressButton(_ sender: UIButton) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
               let signInConfig = appDelegate.signInConfig else {
             return
@@ -52,31 +54,71 @@ class LoginViewController: UIViewController {
         }
     }
     
-//    @IBAction func facebookLoginButton(_ sender: UIButton) {
-//        FBSDKLoginKit.LoginManager().logIn(permissions: ["email", "public_profile"], from: self){ (result, error) in
-//            if error != nil {
-//                print(error?.localizedDescription)
-//                return
-//            }
-//            //print(result?.token?.tokenString)
-//
-//            GraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start {
-//                (connection, result, error) in
-//                if error != nil {
-//                    print(error?.localizedDescription)
-//                    return
-//                }
-//                print(result)
-//            }
-//        }
-//    }
-    
-    
-    
-    
-    
-    // MARK: - log in action
-    
+    // facebook login
+    @IBAction func facebookLoginButton(_ sender: UIButton) {
+        FBSDKLoginKit.LoginManager().logIn(permissions: ["email", "public_profile"], from: self){ (result, error) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            guard let token = result?.token?.tokenString else {
+                        print("User failed to log in with facebook")
+                        return
+                    }
+
+                    let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                                     parameters: ["fields":
+                                                                        "email"],
+                                                                     tokenString: token,
+                                                                     version: nil,
+                                                                     httpMethod: .get)
+
+                    facebookRequest.start(completionHandler: { _, result, error in
+                        guard let result = result as? [String: Any],
+                            error == nil else {
+                                print("Failed to make facebook graph request")
+                                return
+                        }
+
+                        print(result)
+
+                        guard let email = result["email"] as? String else {
+                                print("Faield to get email and name from fb result")
+                                return
+                        }
+
+                        UserDefaults.standard.set(email, forKey: "email")
+
+                        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+                        FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authResult, error in
+                            guard let strongSelf = self else {
+                                return
+                            }
+
+                            guard authResult != nil, error == nil else {
+                                if let error = error {
+                                    print("Facebook credential login failed, MFA may be needed - \(error)")
+                                }
+                                return
+                            }
+                            
+                            DatabaseManager.shared.onlineUser(with: email, id: Auth.auth().currentUser!.uid , completion: { success in
+                                if success{
+                                    print("email add")
+                                }else{
+                                    print("email not add")
+                                }
+                            })
+
+                            print("Successfully logged user in")
+                            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                        })
+                    })
+                }
+        }
+        
     @IBAction func loginAction(_ sender: UIButton) {
         //Check if the fields are not empty
         guard let Email = emailTextField.text, let Password = passwordTextField.text, !Email.isEmpty, !Password.isEmpty else {

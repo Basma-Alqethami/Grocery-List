@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Grocery {
     let addedByUser: String
     let name: String
@@ -18,6 +17,6 @@ struct User{
 }
 
 extension Notification.Name {
-    /// Notificaiton  when user logs in
+    // Notificaiton  when user logs in
     static let didLogInNotification = Notification.Name("didLogInNotification")
 }
