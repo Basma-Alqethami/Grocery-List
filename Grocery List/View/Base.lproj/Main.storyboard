@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GBf-0a-Cjp">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -156,14 +156,47 @@
                                                             <action selector="signupAction:" destination="szR-TC-gSS" eventType="touchUpInside" id="aM7-EY-2X0"/>
                                                         </connections>
                                                     </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="Kc2-SD-psy">
+                                                        <rect key="frame" x="85" y="437" width="200" height="70"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2E-zp-uDy">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="70" id="2rr-xs-nmw"/>
+                                                                    <constraint firstAttribute="width" constant="70" id="Ajv-qV-ozu"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="">
+                                                                    <backgroundConfiguration key="background" image="facebook" imageContentMode="scaleAspectFit"/>
+                                                                </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="facebookLoginButton:" destination="szR-TC-gSS" eventType="touchUpInside" id="lJc-ex-zKa"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UvR-gu-1J2">
+                                                                <rect key="frame" x="130" y="0.0" width="70" height="70"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="70" id="5Wr-8U-JTz"/>
+                                                                    <constraint firstAttribute="width" constant="70" id="AvF-8e-T01"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                    <backgroundConfiguration key="background" image="google" imageContentMode="scaleAspectFit"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="Kc2-SD-psy" firstAttribute="top" secondItem="49Y-3R-ycT" secondAttribute="bottom" constant="20" id="6aW-5N-pRV"/>
                                                     <constraint firstAttribute="trailing" secondItem="45z-uX-5iw" secondAttribute="trailing" constant="20" id="CvH-MY-e0b"/>
                                                     <constraint firstItem="49Y-3R-ycT" firstAttribute="top" secondItem="jUt-kB-rVP" secondAttribute="bottom" constant="15" id="GYW-xb-xuD"/>
                                                     <constraint firstItem="HZj-Bh-pNE" firstAttribute="leading" secondItem="MhZ-07-Bqc" secondAttribute="leading" constant="20" id="Gvn-1Z-xEy"/>
                                                     <constraint firstItem="jUt-kB-rVP" firstAttribute="leading" secondItem="MhZ-07-Bqc" secondAttribute="leading" constant="20" id="Jd7-yA-pmb"/>
                                                     <constraint firstItem="XbE-sq-3qg" firstAttribute="top" secondItem="MhZ-07-Bqc" secondAttribute="top" constant="30" id="M4R-xN-SDi"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Kc2-SD-psy" secondAttribute="bottom" constant="16" id="PA5-Gl-Seu"/>
+                                                    <constraint firstItem="Kc2-SD-psy" firstAttribute="centerX" secondItem="MhZ-07-Bqc" secondAttribute="centerX" id="REu-LU-pGA"/>
                                                     <constraint firstItem="45z-uX-5iw" firstAttribute="leading" secondItem="MhZ-07-Bqc" secondAttribute="leading" constant="20" id="Sb1-v7-uyQ"/>
                                                     <constraint firstItem="jUt-kB-rVP" firstAttribute="top" secondItem="UgO-5N-Hwu" secondAttribute="bottom" constant="15" id="SfR-BY-qLD"/>
                                                     <constraint firstItem="UgO-5N-Hwu" firstAttribute="top" secondItem="45z-uX-5iw" secondAttribute="bottom" constant="15" id="X07-qI-6K2"/>
@@ -221,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQW-2a-RKg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.0093457943924" y="60.90712742980562"/>
+            <point key="canvasLocation" x="1656.521739130435" y="60.267857142857139"/>
         </scene>
         <!--Groceries to Buy-->
         <scene sceneID="A3K-cx-fG9">
@@ -235,21 +268,21 @@
                         <color key="sectionIndexTrackingBackgroundColor" systemColor="systemGray6Color"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="groceryCell" textLabel="AiW-DG-OL2" detailTextLabel="Vd6-tu-f7P" rowHeight="105" style="IBUITableViewCellStyleSubtitle" id="gDS-8U-Z2F">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="105"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gDS-8U-Z2F" id="blq-3K-m9m">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AiW-DG-OL2">
-                                            <rect key="frame" x="20" y="27.5" width="59" height="25.5"/>
+                                            <rect key="frame" x="19.999999999999996" y="27.666666666666671" width="58.666666666666664" height="25.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HoeflerText-Black" family="Hoefler Text" pointSize="25"/>
                                             <color key="textColor" red="0.2901961207" green="0.4196078479" blue="0.5176470876" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vd6-tu-f7P">
-                                            <rect key="frame" x="20" y="57.5" width="35" height="16"/>
+                                            <rect key="frame" x="20" y="57.333333333333321" width="35" height="15.666666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" systemColor="systemGray2Color"/>
@@ -265,10 +298,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Groceries to Buy" largeTitleDisplayMode="always" id="Gza-4i-Do0">
-                        <barButtonItem key="leftBarButtonItem" title="Log out" id="qTm-B7-uYT">
+                        <barButtonItem key="leftBarButtonItem" id="qTm-B7-uYT">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <action selector="userOnLine:" destination="XB8-ML-6O9" id="p04-Eh-xm5"/>
+                                <segue destination="NII-vy-1nN" kind="show" id="gvt-sP-gVK"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pHI-cY-ARc">
@@ -278,6 +311,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="userBarButton" destination="qTm-B7-uYT" id="aUb-Cq-XNz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAP-hz-klf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -292,11 +328,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="onlineCell" id="3sq-4J-Cwd">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="3sq-4J-Cwd">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3sq-4J-Cwd" id="eIi-KZ-Uiu">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -306,27 +342,24 @@
                             <outlet property="delegate" destination="NII-vy-1nN" id="bSt-yt-6of"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Family (Online)" id="tIq-Lt-qzB">
-                        <barButtonItem key="rightBarButtonItem" title="Log out" style="plain" id="OX1-8c-4ie">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="kgh-Aw-igB">
-                                <rect key="frame" x="313" y="5" width="95" height="34.333333333333336"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Sign out"/>
-                            </button>
+                    <navigationItem key="navigationItem" title="Family (Online)" largeTitleDisplayMode="always" id="tIq-Lt-qzB">
+                        <barButtonItem key="rightBarButtonItem" title="Log out" id="XLO-YF-nUe">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="SignOutButton:" destination="NII-vy-1nN" id="cem-g7-y6p"/>
+                                <action selector="SignOutButton:" destination="NII-vy-1nN" id="fvJ-XE-0jV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxI-Sx-U85" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4307.9439252336442" y="60.90712742980562"/>
+            <point key="canvasLocation" x="4419" y="60"/>
         </scene>
     </scenes>
     <resources>
         <image name="Grocery" width="800" height="638"/>
+        <image name="facebook" width="820" height="814"/>
+        <image name="google" width="480" height="480"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

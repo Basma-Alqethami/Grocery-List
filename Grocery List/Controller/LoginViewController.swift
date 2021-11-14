@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-
+import FBSDKLoginKit
 class LoginViewController: UIViewController {
     
     // MARK: - variables
@@ -19,6 +19,28 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    @IBAction func facebookLoginButton(_ sender: UIButton) {
+        FBSDKLoginKit.LoginManager().logIn(permissions: ["email", "public_profile"], from: self){ (result, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                return
+            }
+            //print(result?.token?.tokenString)
+            
+            GraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start {
+                (connection, result, error) in
+                if error != nil {
+                    print(error?.localizedDescription)
+                    return
+                }
+                print(result)
+            }
+        }
+    }
+    
+    
+    
     
     
     // MARK: - log in action

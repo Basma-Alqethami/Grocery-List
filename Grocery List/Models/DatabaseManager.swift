@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseDatabase
 
-
 // MARK: - setup database
 class DatabaseManager{
     
@@ -22,32 +21,57 @@ extension DatabaseManager {
     
     // Insert new user to database
     public func onlineUser(with email: String, id: String, completion: @escaping (Bool) -> Void){
-        
-        self.database.child("online").observeSingleEvent(of: .value) { snapshot in
-            if var usersCollection = snapshot.value as? [[String : String]] {
-                let newElement = [id: email]
-                usersCollection.append(newElement)
-                
-                self.database.child("online").setValue(usersCollection) { error, _ in
-                    guard error == nil else {
-                        completion(false)
-                        return
-                    }
-                    completion(true)
+        // add the new user to "online"
+        database.child("online").child(id).setValue([ "email" : email]){
+                error, reference in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(false)
+                    return
                 }
-                
-            }else{
-                // create that array
-                let newCollection: [[String : String]] = [[id: email]]
-                self.database.child("online").setValue(newCollection) { error, _ in
-                    guard error == nil else {
-                        completion(false)
-                        return
-                    }
-                    completion(true)
-                }
+                completion(true)
             }
+    }
+    
+    // Delete user from database
+    public func deleteUser (with id: String, completion: @escaping (Bool) -> Void) {
+
+        database.child("online").child(id).removeValue {
+            error, reference in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+                return
+            }
+            completion(true)
         }
+    }
+    
+    // Read all user
+    public func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void){
+        
+        database.child("online").observe(.value ) { snapshot in
+            
+            guard let value = snapshot.children.allObjects as? [DataSnapshot] else { //contains all child nodes of online
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            var AllUsers = [User]()
+            
+            for grocerySnap in value { //iterate over each item
+                guard let userEmail = grocerySnap.childSnapshot(forPath: "email").value as? String else {
+                          return
+                      }
+                // Add to AllUsers, for send back to retrieveusers in OnlineTableViewController
+                AllUsers.append(User(email: userEmail))
+            }
+            // sent successfully
+            completion(.success(AllUsers))
+        }
+    }
+    
+    public enum DatabaseError: Error {
+        case failedToFetch
     }
 }
 
@@ -61,6 +85,7 @@ extension DatabaseManager {
         database.child("grocery-items").observe(.value ) { snapshot in
             
             guard let value = snapshot.children.allObjects as? [DataSnapshot] else { //contains all child nodes of grocery-items
+                completion(.failure(DatabaseError.failedToFetch))
                 return
             }
             var AllGroceries = [Grocery]()
@@ -85,14 +110,14 @@ extension DatabaseManager {
         // Second, add the modified value instead of the previous one
         database.child("grocery-items").child(text).setValue([ "addedByUser" : email,
                                                                "name" : text]){
-                error, reference in
-                if let error = error {
-                    print(error.localizedDescription)
-                    completion(false)
-                    return
-                }
-                completion(true)
+            error, reference in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+                return
             }
+            completion(true)
+        }
     }
     
     // Delete
@@ -114,13 +139,13 @@ extension DatabaseManager {
         // add the new item to "grocery-items"
         database.child("grocery-items").child(text).setValue([ "addedByUser" : email,
                                                                 "name" : text]){
-                error, reference in
-                if let error = error {
-                    print(error.localizedDescription)
-                    completion(false)
-                    return
-                }
-                completion(true)
+            error, reference in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+                return
             }
+            completion(true)
+        }
     }
 }

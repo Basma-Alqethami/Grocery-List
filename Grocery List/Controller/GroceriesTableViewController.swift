@@ -8,21 +8,17 @@
 import UIKit
 import FirebaseAuth
 
-
-
-struct Grocery {
-    let addedByUser: String
-    let name: String
-}
-
 class GroceriesTableViewController: UITableViewController {
     
     // MARK: - variables
     var list = [Grocery]()
-    
+    @IBOutlet weak var userBarButton: UIBarButtonItem!
+    var userlist = [User]() // list of user
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        retrieveData() // function to retrieve data from realtime database
+        getAllUsers() // function to retrieve online user from realtime database
+        retrieveData() // function to retrieve grocery items from realtime database
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,14 +40,30 @@ class GroceriesTableViewController: UITableViewController {
         }
     }
     
-    // function to retrieve all Grocery items from realtime database thet seved before
+    // function to retrieve from realtime database
     func retrieveData () {
+        // retrieve all Grocery items from realtime database thet seved before
         DatabaseManager.shared.RetrieveGroseries { result in
             switch result{
             case.success(let Groceries):
                 DispatchQueue.main.async {
                     self.list = Groceries // set result to list
                     self.tableView.reloadData() // reload table to display items
+                }
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    // retrieve online user
+    func getAllUsers () {
+        DatabaseManager.shared.getAllUsers { result in
+            switch result{
+            case.success(let users):
+                DispatchQueue.main.async {
+                    self.userlist = users // set result to list
+                    self.userBarButton.title = "\(self.userlist.count)" // set the number of online user to bar buttom
                 }
             case.failure(let error):
                 print(error.localizedDescription)
@@ -94,26 +106,7 @@ class GroceriesTableViewController: UITableViewController {
         // show the alart
         present(alert, animated: true, completion: nil)
     }
-    
-    // To see how many users are online
-    @IBAction func userOnLine(_ sender: UIBarButtonItem) {
-        
-        do{
-            try Auth.auth().signOut()
-            
-            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true, completion: nil)
-            
-        }catch{
-            print("Could not log out")
-        }
-        
-    }
-    
-    
-    
+
     // MARK: - Table view data source
     
     // number Of Rows
