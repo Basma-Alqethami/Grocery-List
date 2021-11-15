@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FBSDKLoginKit
+
 
 class OnlineTableViewController: UITableViewController {
     
@@ -44,6 +46,10 @@ class OnlineTableViewController: UITableViewController {
     
     @IBAction func SignOutButton(_ sender: UIBarButtonItem) {
         
+        // Log Out facebook
+        FBSDKLoginKit.LoginManager().logOut()
+
+        // Google Log out
         GIDSignIn.sharedInstance.signOut()
 
         do{

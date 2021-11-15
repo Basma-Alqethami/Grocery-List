@@ -121,7 +121,7 @@ class LoginViewController: UIViewController {
         
     @IBAction func loginAction(_ sender: UIButton) {
         //Check if the fields are not empty
-        guard let Email = emailTextField.text, let Password = passwordTextField.text, !Email.isEmpty, !Password.isEmpty else {
+        guard let email = emailTextField.text, let Password = passwordTextField.text, !email.isEmpty, !Password.isEmpty else {
             ErrorLabel.text = "please fill all fields"
             return
         }
@@ -131,6 +131,7 @@ class LoginViewController: UIViewController {
             return
         }
         
+        let Email = email.lowercased()
         // Firebase Login with email and password
         FirebaseAuth.Auth.auth().signIn(withEmail: Email, password: Password, completion: { [weak self] authResult, error in
             
@@ -165,7 +166,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func signupAction(_ sender: UIButton) {
         //Check if the fields are not empty
-        guard let Email = emailTextField.text, let Password = passwordTextField.text, !Email.isEmpty, !Password.isEmpty else {
+        guard let email = emailTextField.text, let Password = passwordTextField.text, !email.isEmpty, !Password.isEmpty else {
             ErrorLabel.text = "please fill all fields"
             return
         }
@@ -175,6 +176,8 @@ class LoginViewController: UIViewController {
             return
         }
         
+        let Email = email.lowercased()
+
         // Firebase sign up new user with email and password
         FirebaseAuth.Auth.auth().createUser(withEmail: Email, password: Password, completion: {[weak self] authResult , error  in
             
@@ -200,7 +203,3 @@ class LoginViewController: UIViewController {
         })
     }
 }
-
-
-
-

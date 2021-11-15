@@ -218,7 +218,6 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.92941176889999999" green="0.96862745289999996" blue="0.96078431610000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="MhZ-07-Bqc" secondAttribute="bottom" constant="50" id="08L-Rs-UqT"/>
                                             <constraint firstAttribute="height" constant="848" id="0Y0-fk-2km"/>
                                             <constraint firstItem="meG-Ef-MPQ" firstAttribute="top" secondItem="Sdo-bA-Zna" secondAttribute="top" id="GA7-Q7-KXd"/>
                                             <constraint firstItem="MhZ-07-Bqc" firstAttribute="leading" secondItem="Sdo-bA-Zna" secondAttribute="leading" constant="22" id="OtA-b9-7dr"/>
@@ -301,6 +300,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Groceries to Buy" largeTitleDisplayMode="always" id="Gza-4i-Do0">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="RPC-hY-ZEK"/>
                         <barButtonItem key="leftBarButtonItem" id="qTm-B7-uYT">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
